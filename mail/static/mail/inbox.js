@@ -74,13 +74,14 @@ function load_mailbox(mailbox) {
 function send_email(){
   
   console.log("sending email");
+  console.log(`${document.querySelector('#compose-body').value}`)
   const response = fetch('/emails', {
     method: 'POST',
     body: JSON.stringify({
         sender: document.getElementById('sender').value,
         recipients: document.getElementById('compose-recipients').value,
         subject: document.querySelector('#compose-subject').value,
-        body: document.querySelector('#compose-body').value,
+        body: document.querySelector('#compose-body').value
         
 
     })
@@ -186,20 +187,21 @@ function open_mail(message){
   document.querySelector('#compose-view').style.display = 'none';
   
   if(message.archived === false){
-    var archive = `<button value="archive" id="archive">Archive </button>`
+    var archive = `<button class="btn btn-sm btn-outline-primary" value="archive" id="archive">Archive </button>`
   }
   else{
-    var archive = `<button value="unarchive" id="unarchive"> Unarchive</button>`
+    var archive = `<button class="btn btn-sm btn-outline-primary" value="unarchive" id="unarchive"> Unarchive</button>`
   }
  
-
-  var display = `<button id='reply' value='reply'> Reply </button> ${archive} 
+  
+  
+  var display = `<button  class="btn btn-sm btn-outline-primary" id='reply' value='reply'> Reply </button> ${archive} 
   <hr>
   <h5>From: ${message.sender} <br> To: ${message.recipients} </h5> 
   <h5>Sent at: ${message.timestamp} <h5>
   <h5>Email Subject: ${message.subject} </h5>
   <hr>
-   <h5>${message.body} </h5>`;
+   <pre>${message.body} </pre>`;
 
 
 
